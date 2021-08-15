@@ -1,14 +1,19 @@
 type Query {
-    getAllProducts: [Product]
+    getAllProducts(filter: InputProductFilter): [Product]
 }
 type Product {
     id: String
-    name: String
+    description: String
+    price: Float
 }
 type Mutation {
     createProduct(input: InputProduct): Product
 }
 input InputProduct {
-    id: String!
-    name: String!
+    id: String
+    description: String!
+    price: Float!
+}
+input InputProductFilter {
+    categoryId: String
 }

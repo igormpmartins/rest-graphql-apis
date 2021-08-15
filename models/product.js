@@ -10,6 +10,11 @@ const init = db => {
         await conn.query('INSERT INTO images (product_id, description, url) VALUES (?, ?, ?)', [productId, ...data])
     }
 
+    const removeImage = async(productId, id) => {
+        const conn = await db
+        await conn.query('DELETE FROM images WHERE product_id = ? and id = ? LIMIT 1', [productId, id])
+    }
+
     const update = async(id, data) => {
         const conn = await db
         await conn.query('UPDATE products SET description = ?, price = ? WHERE id = ?', [...data, id])
@@ -122,6 +127,7 @@ const init = db => {
         updateCategories,
         remove,
         addImage,
+        removeImage,
         findAll,
         findAllPaginated,
         findAllByCategory,

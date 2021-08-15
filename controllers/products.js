@@ -29,11 +29,28 @@ const create = async(req, res) => {
     })
 }
 
+const createImage = async(req, res) => {
+    const {description, url} = req.body
+    await Product.addImage(req.params.id, [description, url])
+    res.send({
+        success: true,
+        description: 'create'
+    })
+}
+
 const remove = async(req, res) => {
     await Product.remove(req.params.id)
     res.send({
         success: true,
         description: 'delete'
+    })
+}
+
+const removeImage = async(req, res) => {
+    await Product.removeImage(req.params.productId, req.params.id)
+    res.send({
+        success: true,
+        description: 'delete image'
     })
 }
 
@@ -90,7 +107,9 @@ module.exports = {
     getAll,
     getById,
     create,
+    createImage,
     remove,
+    removeImage,
     put,
     patch
 }
