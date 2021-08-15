@@ -1,5 +1,5 @@
 type Query {
-    getAllProducts(filter: InputProductFilter): [Product]
+    getAllProducts(filter: ProductFilter): [Product]
 }
 type Product {
     id: String
@@ -14,6 +14,6 @@ input InputProduct {
     description: String!
     price: Float!
 }
-input InputProductFilter {
+input ProductFilter {
     categoryId: String
 }
