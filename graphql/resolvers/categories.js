@@ -1,23 +1,36 @@
 const { ApolloError } = require('apollo-server-express')
 const db = require('../../db')
-const Product = require('../../models/product')(db)
+const Category = require('../../models/category')(db)
 
-const getAllProducts = async(context, {filter}) => {
-
-    let products = null
-
-    if (filter && filter.categoryId) {
-        products = await Product.findAllByCategory(filter.categoryId)
-    } else {
-        products = await Product.findAll()
-    }
-
-    return products
-
+const getAllCategories = async(context) => {
+    const categories = await Category.findAll()
+    return categories
 }
 
-const createProduct = async(context, {input}) => {
+const createCategory = async(context, {input}) => {
+    const {category} = input
+    await Category.create([category])
+    return {
+        category
+    }
+}
 
+const updateCategory = async(context, {id, input}) => {
+    const {category} = input
+    await Category.update(id, [category])
+    return {
+        id, 
+        category
+    }
+}
+
+const removeCategory = async(context, {id}) => {
+    await Category.remove(id)
+    return true
+}
+
+/*
+const createProduct = async(context, {input}) => {
     const {description, price} = input
     await Product.create([description, price])    
 
@@ -75,7 +88,8 @@ const removeImageOnProduct = async(context, {productId, id}) => {
     await Product.removeImage(productId, id)
     return true
 }
+*/
 
 module.exports = {
-    getAllProducts, createProduct, updateProduct, removeProduct, createImageOnProduct, removeImageOnProduct
+    getAllCategories, createCategory, updateCategory, removeCategory
 }

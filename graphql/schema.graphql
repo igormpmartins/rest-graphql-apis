@@ -1,25 +1,49 @@
 type Query {
     getAllProducts(filter: ProductFilter): [Product]
+    getAllCategories: [Category]
+}
+type Category {
+    id: String,
+    category: String
 }
 type Product {
     id: String
     description: String
     price: Float
+    images: Image
+}
+type Image {
+    id: String
+    product_id: String!
+    description: String!
+    url: String!
 }
 type Mutation {
     createProduct(input: InputProduct): Product
-    updateProduct(id: String, input: InputProductUpdate): Product
-    removeProduct(id: String): Boolean
+    updateProduct(id: String!, input: InputProductUpdate): Product
+    removeProduct(id: String!): Boolean
+    createCategory(input: InputCategory): Category
+    updateCategory(id: String!, input: InputCategory): Category
+    removeCategory(id: String!): Boolean
+    createImageOnProduct(productId: String!, input: InputImage): Image
+    removeImageOnProduct(productId: String!, id: String!): Boolean
 }
 input InputProduct {
     id: String
     description: String!
     price: Float!
 }
+input InputCategory {
+    category: String!
+}
 input InputProductUpdate {
     description: String
     price: Float
     categories: [String]
+}
+input InputImage {
+    description: String!
+    url: String!
 }
 input ProductFilter {
     categoryId: String
