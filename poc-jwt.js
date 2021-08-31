@@ -6,7 +6,7 @@ const token = jwt.sign({
         id: 123,
         name: 'Igor'
     }
-}, secret)
+}, secret, {expiresIn: '1 days'})
 
 console.log(token)
 
