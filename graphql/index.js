@@ -1,5 +1,7 @@
 const {ApolloServer, gql} = require('apollo-server-express')
 const resolvers = require('./resolvers')
+const auth = require('../controllers/auth')
+
 const fs = require('fs')
 const path = require('path')
 
@@ -9,7 +11,10 @@ const typeDefs = gql`${schema}`
 
 const graphqlServer = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({req}) => {
+        return auth.checkAuthGraphQL(req)
+    }
 })
 
 module.exports = graphqlServer
