@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('../controllers/categories')
+const auth = require('../controllers/auth')
+
+router.use(auth.checkAuth)
 
 //crud
 router.get('/', controller.findAll)

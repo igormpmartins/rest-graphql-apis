@@ -2,6 +2,7 @@ const db = require('../db')
 const Product = require('../models/product')(db)
 
 const getAll = async(req, res) => {
+    console.log('who?', res.locals)
 
     let products = null
 
